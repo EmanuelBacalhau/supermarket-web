@@ -7,11 +7,9 @@ import Button from '@/components/ui/Button'
 import Input from '@/components/ui/Input'
 import Link from 'next/link'
 import { AuthContext } from '@/contexts/AuthContext'
-import { useRouter } from 'next/navigation'
 
 export default function Home() {
   const { signIn } = useContext(AuthContext)
-  const router = useRouter()
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -26,7 +24,7 @@ export default function Home() {
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-supermarket bg-cover bg-center">
-      <div className="flex w-[450px] flex-col space-y-3 rounded-md bg-white p-10 px-8 shadow-md">
+      <div className="mx-2 flex w-[450px] flex-col space-y-3 rounded-md bg-white p-10 px-8 shadow-md">
         <HeaderLogo>Login</HeaderLogo>
         <div className="flex flex-col items-center justify-center space-y-5">
           <form
@@ -58,7 +56,10 @@ export default function Home() {
             </Button>
           </form>
           <div>
-            <Link href={'#'} className="text-gray-400 hover:text-gray-700">
+            <Link
+              href={'/signUp'}
+              className="text-gray-400 hover:text-gray-700"
+            >
               Do not have an account? Register
             </Link>
           </div>

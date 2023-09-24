@@ -23,7 +23,7 @@ export function setupApi(context = undefined) {
     },
     (error: AxiosError) => {
       if (error.response?.status === 401) {
-        if (typeof window === undefined) {
+        if (typeof window !== 'undefined') {
           useSignUp()
         } else {
           return Promise.reject(new AuthTokenError())

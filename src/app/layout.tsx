@@ -18,6 +18,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <script src="https://jsuites.net/v4/jsuites.js"></script>
+      </head>
       <AuthProvider>
         <body className={inter.className}>{children}</body>
       </AuthProvider>
