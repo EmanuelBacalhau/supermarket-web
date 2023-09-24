@@ -17,14 +17,6 @@ export default function SignUp() {
 
   const handleForm = (event: FormEvent) => {
     event.preventDefault()
-    console.log({
-      name,
-      cpf,
-      birthday,
-      email,
-      password,
-      confirmPassword,
-    })
   }
 
   return (
