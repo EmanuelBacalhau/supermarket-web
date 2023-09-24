@@ -1,8 +1,11 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 
-import './globals.css'
 import AuthProvider from '@/contexts/AuthProvider'
+import { ToastContainer } from 'react-toastify'
+
+import './globals.css'
+import 'react-toastify/dist/ReactToastify.css'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -22,7 +25,10 @@ export default function RootLayout({
         <script src="https://jsuites.net/v4/jsuites.js"></script>
       </head>
       <AuthProvider>
-        <body className={inter.className}>{children}</body>
+        <body className={inter.className}>
+          {children}
+          <ToastContainer autoClose={1500} theme="light" />
+        </body>
       </AuthProvider>
     </html>
   )

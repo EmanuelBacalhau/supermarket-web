@@ -1,12 +1,16 @@
 'use client'
 
 import { ReactNode, useState } from 'react'
-import { AuthContext, SignProps, UserProps } from './AuthContext'
-import { useSignUp } from './signUp'
+import { AuthContext, SignInProps, SignUpProps, UserProps } from './AuthContext'
+import { useSignOut } from './signOut'
 import { api } from '@/api/api'
 
 import { setCookie } from 'nookies'
 import { useRouter } from 'next/navigation'
+
+import { toast } from 'react-toastify'
+
+import axios from 'axios'
 
 interface AuthProviderProps {
   children: ReactNode
@@ -18,7 +22,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<UserProps>()
   const isAuthenticated = !!user
 
-  const signIn = async ({ email, password }: SignProps) => {
+  const signIn = async ({ email, password }: SignInProps) => {
     try {
       const response = await api.post('/auth', { email, password })
       const { token } = response.data
@@ -36,8 +40,36 @@ export default function AuthProvider({ children }: AuthProviderProps) {
 
       router.push('/dashboard')
     } catch (error) {
-      if (error instanceof Error) {
-        console.log(error.message)
+      if (axios.isAxiosError(error)) {
+        if (error.response?.status === 401) {
+          toast.error(error.response.data.message)
+        }
+      }
+    }
+  }
+
+  const signUp = async ({
+    name,
+    cpf,
+    birthday,
+    email,
+    password,
+  }: SignUpProps) => {
+    try {
+      await api.post('/employees/register', {
+        name,
+        cpf,
+        birthday,
+        email,
+        password,
+      })
+
+      router.push('/')
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        if (error.response?.status === 409) {
+          toast.error(error.response.data.message)
+        }
       }
     }
   }
@@ -46,7 +78,8 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     <AuthContext.Provider
       value={{
         signIn,
-        signUp: useSignUp,
+        signUp,
+        signOut: useSignOut,
         isAuthenticated,
         user: user as UserProps,
       }}

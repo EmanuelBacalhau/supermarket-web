@@ -4,7 +4,15 @@ export type UserProps = {
   id: string
 }
 
-export type SignProps = {
+export type SignInProps = {
+  email: string
+  password: string
+}
+
+export type SignUpProps = {
+  name: string
+  cpf: string
+  birthday: string
   email: string
   password: string
 }
@@ -12,8 +20,9 @@ export type SignProps = {
 interface AuthContextData {
   user: UserProps
   isAuthenticated: boolean
-  signIn: (credentials: SignProps) => Promise<void>
-  signUp: () => void
+  signIn: (credentials: SignInProps) => Promise<void>
+  signUp: (credentials: SignUpProps) => Promise<void>
+  signOut: () => void
 }
 
 export const AuthContext = createContext({} as AuthContextData)

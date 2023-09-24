@@ -1,13 +1,16 @@
 'use client'
+import { FormEvent, useState, useContext } from 'react'
 
 import HeaderLogo from '@/components/HeaderLogo'
 import Button from '@/components/ui/Button'
 import Input from '@/components/ui/Input'
 import Link from 'next/link'
+import { AuthContext } from '@/contexts/AuthContext'
 
-import { FormEvent, useState } from 'react'
+import { toast } from 'react-toastify'
 
 export default function SignUp() {
+  const { signUp } = useContext(AuthContext)
   const [name, setName] = useState('')
   const [cpf, setCpf] = useState('')
   const [birthday, setBirthday] = useState('')
@@ -15,16 +18,19 @@ export default function SignUp() {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
 
-  const handleForm = (event: FormEvent) => {
+  const [loading, setLoading] = useState(false)
+
+  const handleForm = async (event: FormEvent) => {
     event.preventDefault()
-    console.log({
-      name,
-      cpf,
-      birthday,
-      email,
-      password,
-      confirmPassword,
-    })
+    setLoading(true)
+
+    if (confirmPassword !== password) {
+      setLoading(false)
+      return toast.error('Passwords are not the same.')
+    }
+
+    await signUp({ name, cpf, birthday, email, password })
+    setLoading(false)
   }
 
   return (
@@ -51,8 +57,10 @@ export default function SignUp() {
                   after={true}
                   type="text"
                   required
-                  placeholder="000.000.00-00"
+                  placeholder="000.000.000-00"
                   data-mask="000.000.000-00"
+                  minLength={14}
+                  maxLength={14}
                   onChange={(e) => setCpf(e.target.value)}
                 >
                   CPF
@@ -99,7 +107,7 @@ export default function SignUp() {
                 Confirm password
               </Input>
             </div>
-            <Button loading={false} type="submit">
+            <Button loading={loading} type="submit">
               Register
             </Button>
           </form>
