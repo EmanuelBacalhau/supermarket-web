@@ -1,7 +1,7 @@
 import { destroyCookie } from 'nookies'
 import { useRouter } from 'next/navigation'
 
-export function useSignUp(context = undefined) {
+export function useSignOut(context = undefined) {
   try {
     const router = useRouter()
     const SECRET = process.env.NEXT_PUBLIC_SECRET

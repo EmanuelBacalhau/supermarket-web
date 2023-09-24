@@ -2,7 +2,7 @@
 
 import { ReactNode, useState } from 'react'
 import { AuthContext, SignProps, UserProps } from './AuthContext'
-import { useSignUp } from './signUp'
+import { useSignOut } from './signOut'
 import { api } from '@/api/api'
 
 import { setCookie } from 'nookies'
@@ -46,7 +46,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     <AuthContext.Provider
       value={{
         signIn,
-        signUp: useSignUp,
+        signUp: useSignOut,
         isAuthenticated,
         user: user as UserProps,
       }}
