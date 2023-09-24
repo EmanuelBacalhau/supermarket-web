@@ -9,7 +9,12 @@ interface HeaderLogoProps {
 export default function HeaderLogo({ children }: HeaderLogoProps) {
   return (
     <div className="flex flex-col items-center justify-center space-y-3">
-      <Image src={supermarket} alt="logo-supermarket" className="w-[320px]" />
+      <Image
+        src={supermarket}
+        alt="logo-supermarket"
+        priority={true}
+        className="w-[320px]"
+      />
       <h2 className="text-xl font-bold">{children}</h2>
     </div>
   )

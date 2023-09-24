@@ -1,20 +1,31 @@
 'use client'
 
-import { FormEvent } from 'react'
+import { FormEvent, useContext, useState } from 'react'
 
 import HeaderLogo from '@/components/HeaderLogo'
 import Button from '@/components/ui/Button'
 import Input from '@/components/ui/Input'
 import Link from 'next/link'
+import { AuthContext } from '@/contexts/AuthContext'
+import { useRouter } from 'next/navigation'
 
 export default function Home() {
-  const handleForm = (event: FormEvent) => {
+  const { signIn } = useContext(AuthContext)
+  const router = useRouter()
+
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [loading, setLoading] = useState(false)
+
+  const handleForm = async (event: FormEvent) => {
     event.preventDefault()
-    console.log('Oi dev')
+    setLoading(true)
+    await signIn({ email, password })
+    setLoading(false)
   }
 
   return (
-    <div className="bg-supermarket flex min-h-screen items-center justify-center bg-cover bg-center">
+    <div className="flex min-h-screen items-center justify-center bg-supermarket bg-cover bg-center">
       <div className="flex w-[450px] flex-col space-y-3 rounded-md bg-white p-10 px-8 shadow-md">
         <HeaderLogo>Login</HeaderLogo>
         <div className="flex flex-col items-center justify-center space-y-5">
@@ -23,14 +34,26 @@ export default function Home() {
             className="flex w-[90%] flex-col space-y-3"
           >
             <div className="flex flex-col space-y-2">
-              <Input after={false} type="email" required>
+              <Input
+                after={false}
+                type="email"
+                required
+                placeholder="Type your email"
+                onChange={(e) => setEmail(e.target.value)}
+              >
                 Email
               </Input>
-              <Input after={false} type="password" required>
+              <Input
+                after={false}
+                type="password"
+                required
+                placeholder="Type your password"
+                onChange={(e) => setPassword(e.target.value)}
+              >
                 Password
               </Input>
             </div>
-            <Button loading={false} type="submit">
+            <Button loading={loading} type="submit">
               Access
             </Button>
           </form>
