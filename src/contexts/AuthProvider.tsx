@@ -10,7 +10,7 @@ import { useRouter } from 'next/navigation'
 
 import { toast } from 'react-toastify'
 
-import axios from 'axios'
+import { AxiosError } from 'axios'
 
 interface AuthProviderProps {
   children: ReactNode
@@ -40,10 +40,8 @@ export default function AuthProvider({ children }: AuthProviderProps) {
 
       router.push('/dashboard')
     } catch (error) {
-      if (axios.isAxiosError(error)) {
-        if (error.response?.status === 401) {
-          toast.error(error.response.data.message)
-        }
+      if (error instanceof AxiosError) {
+        toast.error(error.response?.data.message)
       }
     }
   }
@@ -66,10 +64,8 @@ export default function AuthProvider({ children }: AuthProviderProps) {
 
       router.push('/')
     } catch (error) {
-      if (axios.isAxiosError(error)) {
-        if (error.response?.status === 409) {
-          toast.error(error.response.data.message)
-        }
+      if (error instanceof AxiosError) {
+        toast.error(error.response?.data.message)
       }
     }
   }
