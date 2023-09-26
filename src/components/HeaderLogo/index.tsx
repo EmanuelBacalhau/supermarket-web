@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import supermarket from '../../../public/Supermarket UniFacisa.svg'
+import supermarket from '../../../public/Supermarket-UniFacisa.svg'
 import { ReactNode } from 'react'
 
 interface HeaderLogoProps {
