@@ -11,6 +11,7 @@ import { useRouter } from 'next/navigation'
 import { toast } from 'react-toastify'
 
 import { AxiosError } from 'axios'
+import { AuthTokenError } from '@/api/errors/AuthTokenError'
 
 interface AuthProviderProps {
   children: ReactNode
@@ -40,8 +41,8 @@ export default function AuthProvider({ children }: AuthProviderProps) {
 
       router.push('/dashboard')
     } catch (error) {
-      if (error instanceof AxiosError) {
-        toast.error(error.response?.data.message)
+      if (error instanceof AuthTokenError) {
+        toast.error(error.message)
       }
     }
   }
