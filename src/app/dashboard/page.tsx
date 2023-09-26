@@ -1,6 +1,7 @@
 'use client'
 
-import getData from '@/utils/privateRouter'
+import HeaderHome from '@/components/home/HeaderHome'
+import privateRouter from '@/utils/privateRouter'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 
@@ -8,12 +9,12 @@ export default function Dashboard() {
   const router = useRouter()
 
   useEffect(() => {
-    getData(router)
-  })
+    privateRouter(router)
+  }, [])
 
   return (
     <div>
-      <h1>Oi dev trouxa</h1>
+      <HeaderHome />
     </div>
   )
 }
