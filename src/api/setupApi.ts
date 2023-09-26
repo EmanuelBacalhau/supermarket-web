@@ -1,9 +1,8 @@
-import axios, { AxiosError } from 'axios'
+import axios from 'axios'
 
 import { parseCookies } from 'nookies'
 import { AuthTokenError } from './errors/AuthTokenError'
 import { useSignOut } from '@/contexts/signOut'
-import { type } from 'os'
 
 export function setupApi(context = undefined) {
   const cookies = parseCookies(context)
