@@ -2,6 +2,7 @@ import { createContext } from 'react'
 
 export type UserProps = {
   id: string
+  name: string
 }
 
 export type SignInProps = {

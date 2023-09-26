@@ -1,17 +1,17 @@
 'use client'
 
-import { ReactNode, useState } from 'react'
+import { ReactNode, useState, useEffect } from 'react'
 import { AuthContext, SignInProps, SignUpProps, UserProps } from './AuthContext'
 import { useSignOut } from './signOut'
 import { api } from '@/api/api'
 
-import { setCookie } from 'nookies'
+import { destroyCookie, parseCookies, setCookie } from 'nookies'
 import { useRouter } from 'next/navigation'
 
 import { toast } from 'react-toastify'
 
-import { AxiosError } from 'axios'
 import { AuthTokenError } from '@/api/errors/AuthTokenError'
+import { AxiosError } from 'axios'
 
 interface AuthProviderProps {
   children: ReactNode
@@ -22,6 +22,23 @@ export default function AuthProvider({ children }: AuthProviderProps) {
 
   const [user, setUser] = useState<UserProps>()
   const isAuthenticated = !!user
+
+  const { SECRET } = parseCookies()
+
+  useEffect(() => {
+    if (SECRET) {
+      api
+        .get('/employees/me')
+        .then((response) => {
+          const { id, name } = response.data
+          setUser({ id, name })
+          router.push('/dashboard')
+        })
+        .catch(() => {
+          destroyCookie(undefined, process.env.NEXT_PUBLIC_SECRET as string)
+        })
+    }
+  }, [])
 
   const signIn = async ({ email, password }: SignInProps) => {
     try {
