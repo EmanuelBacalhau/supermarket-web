@@ -5,13 +5,14 @@ import { AuthContext, SignInProps, SignUpProps, UserProps } from './AuthContext'
 import { useSignOut } from './signOut'
 import { api } from '@/api/api'
 
-import { destroyCookie, parseCookies, setCookie } from 'nookies'
+import { parseCookies, setCookie } from 'nookies'
 import { useRouter } from 'next/navigation'
 
 import { toast } from 'react-toastify'
 
 import { AuthTokenError } from '@/api/errors/AuthTokenError'
 import { AxiosError } from 'axios'
+import { logOut } from '@/utils/logOut'
 
 interface AuthProviderProps {
   children: ReactNode
@@ -32,10 +33,9 @@ export default function AuthProvider({ children }: AuthProviderProps) {
         .then((response) => {
           const { id, name } = response.data
           setUser({ id, name })
-          router.push('/dashboard')
         })
         .catch(() => {
-          destroyCookie(undefined, process.env.NEXT_PUBLIC_SECRET as string)
+          logOut(router)
         })
     }
   }, [])

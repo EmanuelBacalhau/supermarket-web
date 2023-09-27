@@ -1,6 +1,6 @@
 'use client'
 
-import HeaderHome from '@/components/home/HeaderHome'
+import HeaderHome from '@/components/Dashboard/HeaderHome'
 import privateRouter from '@/utils/privateRouter'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
