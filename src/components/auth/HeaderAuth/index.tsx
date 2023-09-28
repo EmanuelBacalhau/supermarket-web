@@ -6,7 +6,7 @@ interface HeaderLogoProps {
   children: ReactNode
 }
 
-export default function HeaderSignIn({ children }: HeaderLogoProps) {
+export default function HeaderAuth({ children }: HeaderLogoProps) {
   return (
     <div className="flex flex-col items-center justify-center space-y-3">
       <Image
