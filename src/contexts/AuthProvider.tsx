@@ -1,9 +1,8 @@
 'use client'
 
 import { ReactNode, useState, useEffect } from 'react'
-import { AuthContext, SignInProps, SignUpProps, UserProps } from './AuthContext'
-import { useSignOut } from './signOut'
-import { api } from '@/api/api'
+import { AuthContext } from './AuthContext'
+import { signOut } from './signOut'
 
 import { parseCookies, setCookie } from 'nookies'
 import { useRouter } from 'next/navigation'
@@ -12,7 +11,8 @@ import { toast } from 'react-toastify'
 
 import { AuthTokenError } from '@/api/errors/AuthTokenError'
 import { AxiosError } from 'axios'
-import { logOut } from '@/utils/logOut'
+import { api } from '@/api/api'
+import { SignInProps, SignUpProps, UserProps } from './types'
 
 interface AuthProviderProps {
   children: ReactNode
@@ -24,10 +24,11 @@ export default function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<UserProps>()
   const isAuthenticated = !!user
 
-  const { SECRET } = parseCookies()
+  const SECRET = process.env.NEXT_PUBLIC_SECRET as string
+  const cookies = parseCookies()
 
   useEffect(() => {
-    if (SECRET) {
+    if (cookies[SECRET]) {
       api
         .get('/employees/me')
         .then((response) => {
@@ -35,17 +36,15 @@ export default function AuthProvider({ children }: AuthProviderProps) {
           setUser({ id, name })
         })
         .catch(() => {
-          logOut(router)
+          signOut()
         })
     }
-  }, [])
+  })
 
   const signIn = async ({ email, password }: SignInProps) => {
     try {
       const response = await api.post('/auth', { email, password })
       const { token } = response.data
-
-      const SECRET = process.env.NEXT_PUBLIC_SECRET as string
 
       setCookie(undefined, SECRET, token, {
         maxAge: 60 * 60 * 24,
@@ -93,7 +92,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
       value={{
         signIn,
         signUp,
-        signOut: useSignOut,
+        signOut,
         isAuthenticated,
         user: user as UserProps,
       }}
