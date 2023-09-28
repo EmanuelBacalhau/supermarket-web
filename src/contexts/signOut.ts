@@ -9,4 +9,6 @@ export function signOut() {
     destroyCookie(undefined, SECRET as string)
     window.location.href = '/'
   }
+
+  window.location.href = '/'
 }

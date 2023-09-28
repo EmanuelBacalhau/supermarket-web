@@ -1,13 +1,13 @@
+'use client'
+
 import Image from 'next/image'
-import logoSupermarket from '../../../../public/Supermarket-UniFacisa.svg'
+import logoSupermarket from '../../../../public/supermarket.svg'
 import Link from 'next/link'
 
 import { LogOut } from 'lucide-react'
-import { logOut } from '@/utils/logOut'
-import { useRouter } from 'next/navigation'
+import { signOut } from '@/contexts/signOut'
 
 export default function HeaderHome() {
-  const router = useRouter()
   return (
     <div className="flex h-20 items-center justify-between bg-yellow-400 px-12">
       <Link href={'/dashboard'}>
@@ -20,7 +20,7 @@ export default function HeaderHome() {
       <div className="flex items-center space-x-8 text-center">
         <Link href={'/category'}>Category</Link>
         <Link href={'/product'}>Product</Link>
-        <button onClick={() => logOut(router)}>
+        <button onClick={signOut}>
           <LogOut />
         </button>
       </div>
