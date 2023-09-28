@@ -1,12 +1,12 @@
 import Image from 'next/image'
-import supermarket from '../../../public/Supermarket-UniFacisa.svg'
+import supermarket from '../../../../public/supermarket.svg'
 import { ReactNode } from 'react'
 
 interface HeaderLogoProps {
   children: ReactNode
 }
 
-export default function HeaderLogo({ children }: HeaderLogoProps) {
+export default function HeaderSignIn({ children }: HeaderLogoProps) {
   return (
     <div className="flex flex-col items-center justify-center space-y-3">
       <Image
