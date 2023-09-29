@@ -7,7 +7,7 @@ import { toast } from 'react-toastify'
 
 interface GetProducts {
   id: string
-  image?: string
+  imageUrl: string
   name: string
   price: number
   amount: number
@@ -25,7 +25,7 @@ export const productService = {
         },
       })
 
-      return response
+      return response.data ? response.data : []
     } catch (error) {
       if (error instanceof AxiosError) {
         if (error.response?.status === 401) {
