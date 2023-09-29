@@ -4,6 +4,8 @@ import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.share
 
 import { toast } from 'react-toastify'
 
+import { destroyCookie, parseCookies, setCookie } from 'nookies'
+
 interface LoginProps {
   email: string
   password: string
@@ -25,7 +27,10 @@ export const authService = {
       const secret = process.env.NEXT_PUBLIC_SECRET as string
       const { token } = response.data
 
-      sessionStorage.setItem(secret, token)
+      setCookie(undefined, secret, token, {
+        maxAge: 60 * 60 * 24,
+        path: '/',
+      })
 
       return response
     } catch (error) {
@@ -58,10 +63,10 @@ export const authService = {
   logOut: (router: AppRouterInstance) => {
     const secret = process.env.NEXT_PUBLIC_SECRET as string
 
-    const token = sessionStorage.getItem(secret)
+    const token = parseCookies()
 
-    if (token) {
-      sessionStorage.removeItem(secret)
+    if (token[secret]) {
+      destroyCookie(undefined, secret)
       router.push('/')
     }
 
