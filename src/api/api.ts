@@ -1,39 +1,7 @@
 import axios from 'axios'
 
-import { parseCookies } from 'nookies'
-import { AuthTokenError } from './errors/AuthTokenError'
-import { signOut } from '@/contexts/signOut'
+const baseURL = process.env.NEXT_PUBLIC_BASE_URL
 
-export function setupApi(context = undefined) {
-  const cookies = parseCookies(context)
-
-  const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
-  const SECRET = process.env.NEXT_PUBLIC_SECRET
-
-  const api = axios.create({
-    baseURL: BASE_URL,
-    headers: {
-      Authorization: `Bearer ${cookies[SECRET as string]}`,
-    },
-  })
-
-  api.interceptors.response.use(
-    (response) => {
-      return response
-    },
-    async (error) => {
-      if (error.response && error.response.status === 401) {
-        if (typeof window !== 'undefined') {
-          signOut()
-        }
-        return Promise.reject(new AuthTokenError(error.response.data.message))
-      }
-
-      return Promise.reject(error)
-    },
-  )
-
-  return api
-}
-
-export const api = setupApi()
+export const api = axios.create({
+  baseURL,
+})

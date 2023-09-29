@@ -5,9 +5,11 @@ import logoSupermarket from '../../../../public/supermarket.svg'
 import Link from 'next/link'
 
 import { LogOut } from 'lucide-react'
-import { signOut } from '@/contexts/signOut'
+import { authService } from '@/api/services/auth'
+import { useRouter } from 'next/navigation'
 
 export default function HeaderHome() {
+  const router = useRouter()
   return (
     <div className="flex h-20 items-center justify-between bg-yellow-400 px-12">
       <Link href={'/dashboard'}>
@@ -20,7 +22,7 @@ export default function HeaderHome() {
       <div className="flex items-center space-x-8 text-center">
         <Link href={'/category'}>Category</Link>
         <Link href={'/product'}>Product</Link>
-        <button onClick={signOut}>
+        <button onClick={() => authService.logOut(router)}>
           <LogOut />
         </button>
       </div>

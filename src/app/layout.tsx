@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 
-import AuthProvider from '@/contexts/AuthProvider'
 import { ToastContainer } from 'react-toastify'
 
 import './globals.css'
@@ -24,12 +23,10 @@ export default function RootLayout({
       <head>
         <script src="https://jsuites.net/v4/jsuites.js"></script>
       </head>
-      <AuthProvider>
-        <body className={inter.className}>
-          {children}
-          <ToastContainer autoClose={1500} theme="light" />
-        </body>
-      </AuthProvider>
+      <body className={inter.className}>
+        {children}
+        <ToastContainer autoClose={1500} theme="light" />
+      </body>
     </html>
   )
 }

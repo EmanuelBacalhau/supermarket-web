@@ -1,15 +1,17 @@
 'use client'
 
+import { authService } from '@/api/services/auth'
 import Button from '@/components/ui/Button'
 import Input from '@/components/ui/Input'
-import { AuthContext } from '@/contexts/AuthContext'
 import Link from 'next/link'
-import { FormEvent, useContext, useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { FormEvent, useState } from 'react'
 
 import { toast } from 'react-toastify'
 
 export function FormSignUp() {
-  const { signUp } = useContext(AuthContext)
+  const router = useRouter()
+
   const [name, setName] = useState('')
   const [cpf, setCpf] = useState('')
   const [birthday, setBirthday] = useState('')
@@ -28,8 +30,19 @@ export function FormSignUp() {
       return toast.error('Passwords are not the same.')
     }
 
-    await signUp({ name, cpf, birthday, email, password })
+    const response = await authService.signUp({
+      name,
+      cpf,
+      birthday,
+      email,
+      password,
+    })
+
     setLoading(false)
+
+    if (response?.status === 201) {
+      router.push('/')
+    }
   }
 
   return (

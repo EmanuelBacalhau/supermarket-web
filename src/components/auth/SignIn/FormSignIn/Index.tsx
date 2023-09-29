@@ -1,13 +1,14 @@
 'use client'
 
+import { authService } from '@/api/services/auth'
 import Button from '@/components/ui/Button'
 import Input from '@/components/ui/Input'
-import { AuthContext } from '@/contexts/AuthContext'
 import Link from 'next/link'
-import { FormEvent, useContext, useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { FormEvent, useState } from 'react'
 
 export function FormSignIn() {
-  const { signIn } = useContext(AuthContext)
+  const router = useRouter()
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -15,9 +16,16 @@ export function FormSignIn() {
 
   const handleForm = async (event: FormEvent) => {
     event.preventDefault()
+
     setLoading(true)
-    await signIn({ email, password })
+
+    const response = await authService.login({ email, password })
+
     setLoading(false)
+
+    if (response?.status === 200) {
+      router.push('/dashboard')
+    }
   }
   return (
     <div className="flex flex-col items-center justify-center space-y-5">
