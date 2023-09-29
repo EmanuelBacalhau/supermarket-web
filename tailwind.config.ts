@@ -7,6 +7,9 @@ const config: Config = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
+    container: {
+      center: true,
+    },
     extend: {
       backgroundImage: {
         supermarket: 'url(https://images2.alphacoders.com/108/1081105.jpg)',

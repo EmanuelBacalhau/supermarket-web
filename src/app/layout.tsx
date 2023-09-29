@@ -24,7 +24,7 @@ export default function RootLayout({
         <script src="https://jsuites.net/v4/jsuites.js"></script>
       </head>
       <body className={inter.className}>
-        {children}
+        <div className="container">{children}</div>
         <ToastContainer autoClose={1500} theme="light" />
       </body>
     </html>
