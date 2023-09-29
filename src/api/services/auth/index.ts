@@ -5,6 +5,8 @@ import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.share
 import { toast } from 'react-toastify'
 
 import { destroyCookie, parseCookies, setCookie } from 'nookies'
+import { NextRequest, NextResponse } from 'next/server'
+import { RequestCookie } from 'next/dist/compiled/@edge-runtime/cookies'
 
 interface LoginProps {
   email: string
@@ -71,5 +73,23 @@ export const authService = {
     }
 
     router.push('/')
+  },
+  getEmployee: (request: NextRequest, token: RequestCookie) => {
+    api
+      .get('/employees/me', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(() => {
+        return NextResponse.next()
+      })
+      .catch((error) => {
+        if (error instanceof AxiosError) {
+          if (error.response?.status === 401) {
+            return NextResponse.redirect(new URL('/', request.url))
+          }
+        }
+      })
   },
 }

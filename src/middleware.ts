@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { api } from './api/api'
+import { authService } from './api/services/auth'
 
 export function middleware(request: NextRequest) {
   const secret = process.env.NEXT_PUBLIC_SECRET as string
-  const configCookies = request.cookies.get(secret)
+  const token = request.cookies.get(secret)
 
-  if (!configCookies) {
+  if (!token) {
     if (request.nextUrl.pathname === '/') {
       return NextResponse.next()
     }
@@ -16,6 +16,12 @@ export function middleware(request: NextRequest) {
 
   if (publicRoutes.includes(request.nextUrl.pathname)) {
     return NextResponse.redirect(new URL('/dashboard', request.url))
+  }
+
+  const privateRoutes = ['/dashboard', '/product', '/category']
+
+  if (privateRoutes.includes(request.nextUrl.pathname)) {
+    return authService.getEmployee(request, token)
   }
 
   return NextResponse.next()
