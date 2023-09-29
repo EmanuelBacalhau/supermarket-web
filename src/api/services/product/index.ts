@@ -5,13 +5,21 @@ import { cookies } from 'next/headers'
 
 import { toast } from 'react-toastify'
 
+interface GetProducts {
+  id: string
+  image?: string
+  name: string
+  price: number
+  amount: number
+}
+
 export const productService = {
   getProducts: async () => {
     const secret = process.env.NEXT_PUBLIC_SECRET as string
     const token = cookies().get(secret)?.value
 
     try {
-      const response = await api.get('/products', {
+      const response = await api.get<GetProducts[]>('/products', {
         headers: {
           Authorization: `Bearer ${token}`,
         },

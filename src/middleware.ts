@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { api } from './api/api'
 
 export function middleware(request: NextRequest) {
   const secret = process.env.NEXT_PUBLIC_SECRET as string
