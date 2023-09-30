@@ -5,6 +5,7 @@ import { ToastContainer } from 'react-toastify'
 
 import './globals.css'
 import 'react-toastify/dist/ReactToastify.css'
+import { AuthProvider } from '@/context/AuthProvider'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -24,8 +25,10 @@ export default function RootLayout({
         <script src="https://jsuites.net/v4/jsuites.js"></script>
       </head>
       <body className={inter.className}>
-        <div className="container">{children}</div>
-        <ToastContainer autoClose={1500} theme="light" />
+        <AuthProvider>
+          {children}
+          <ToastContainer autoClose={1500} theme="light" />
+        </AuthProvider>
       </body>
     </html>
   )
