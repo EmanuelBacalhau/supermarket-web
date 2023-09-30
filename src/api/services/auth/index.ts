@@ -74,22 +74,11 @@ export const authService = {
 
     router.push('/')
   },
-  getEmployee: (request: NextRequest, token: RequestCookie) => {
-    api
-      .get('/employees/me', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then(() => {
-        return NextResponse.next()
-      })
-      .catch((error) => {
-        if (error instanceof AxiosError) {
-          if (error.response?.status === 401) {
-            return NextResponse.redirect(new URL('/', request.url))
-          }
-        }
-      })
+  getEmployee: async (token: string) => {
+    return api.get('/employees/me', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
   },
 }
