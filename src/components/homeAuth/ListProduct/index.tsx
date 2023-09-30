@@ -15,10 +15,10 @@ export async function ListProduct() {
   }
 
   const responsive =
-    'max-[1538px]:grid-cols-3 max-[570px]:grid-cols-2 max-[400px]:grid-cols-1'
+    'max-[1538px]:grid-cols-3 max-[630px]:grid-cols-2 max-[420px]:grid-cols-1'
 
   return (
-    <div className={`grid grid-cols-4 gap-5 px-12 py-8 ${responsive}`}>
+    <div className={`container grid grid-cols-5 gap-5 py-8 ${responsive}`}>
       {products?.map((product) => (
         <Product
           key={product.id}

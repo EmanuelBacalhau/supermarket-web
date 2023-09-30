@@ -8,11 +8,13 @@ interface ProductProps {
 }
 
 export function Product(data: ProductProps) {
+  const image = `${process.env.NEXT_PUBLIC_BASE_URL}/products/${data.imageUrl}`
+
   return (
     <div className="flex h-full w-full flex-col gap-2 rounded-md border border-gray-400/20 px-4 py-4 shadow-lg">
       <div className="flex items-center justify-center">
         <Image
-          src={`${process.env.NEXT_PUBLIC_BASE_URL}/products/${data.imageUrl}`}
+          src={image}
           alt="teste"
           width={200}
           height={200}
