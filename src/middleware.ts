@@ -6,14 +6,14 @@ export function middleware(request: NextRequest) {
 
   const { pathname } = request.nextUrl
 
+  const publicRoutes = ['/', '/signUp']
+
   if (!token) {
-    if (pathname === '/') {
+    if (publicRoutes.includes(pathname)) {
       return NextResponse.next()
     }
     return NextResponse.redirect(new URL('/', request.url))
   }
-
-  const publicRoutes = ['/', '/signUp']
 
   if (publicRoutes.includes(pathname)) {
     return NextResponse.redirect(new URL('/dashboard', request.url))
