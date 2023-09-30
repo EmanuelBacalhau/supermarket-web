@@ -3,6 +3,11 @@ import { AxiosError } from 'axios'
 
 import { toast } from 'react-toastify'
 
+export interface CategoryProps {
+  id: string
+  name: string
+}
+
 export const categoryService = {
   create: async (name: string, token: string) => {
     try {
@@ -26,5 +31,13 @@ export const categoryService = {
         }
       }
     }
+  },
+
+  getCategories: async (token: string): Promise<CategoryProps[] | []> => {
+    const response = await api.get<CategoryProps[]>('/categories', {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+
+    return response.data ? response.data : []
   },
 }

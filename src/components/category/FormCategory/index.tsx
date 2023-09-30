@@ -20,7 +20,7 @@ export default function FormCategory() {
     setLoading(true)
     const response = await categoryService.create(name, cookies[secret])
     setLoading(false)
-    if (response?.status) {
+    if (response?.status === 201) {
       toast.success('Create category with success!')
     }
   }

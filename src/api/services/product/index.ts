@@ -25,4 +25,12 @@ export const productService = {
       return response.data ? response.data : []
     } catch (error) {}
   },
+  create: async (data: FormData) => {
+    try {
+      const response = await api.post('/products/register', data)
+      return response.data
+    } catch (error) {
+      console.log(error)
+    }
+  },
 }
