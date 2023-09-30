@@ -1,10 +1,29 @@
-import { productService } from '@/api/services/product'
-import { Product } from '../Product'
+'use client'
 
-export async function ListProduct() {
-  const products = await productService.getProducts()
+import { GetProducts, getProducts } from '@/api/services/product/getProducts'
+import { Product } from '../Product'
+import { useEffect, useState } from 'react'
+import { deleteProduct } from '@/api/services/product/deleteProduct'
+
+export function ListProduct() {
+  const [products, setProducts] = useState<GetProducts[]>()
 
   const size = products?.length
+
+  useEffect(() => {
+    async function getData() {
+      const response = await getProducts()
+      setProducts(response)
+    }
+
+    getData()
+  }, [])
+
+  const handleDeleteProduct = async (id: string) => {
+    await deleteProduct(id)
+    const newProducts = products?.filter((product) => product.id !== id)
+    setProducts(newProducts)
+  }
 
   if (!size) {
     return (
@@ -22,10 +41,14 @@ export async function ListProduct() {
       {products?.map((product) => (
         <Product
           key={product.id}
+          id={product.id}
           amount={product.amount}
           name={product.name}
           price={product.price}
           imageUrl={product.imageUrl}
+          manufacturingDate={product.manufacturingDate}
+          expirationDate={product.expirationDate}
+          handleClick={handleDeleteProduct}
         />
       ))}
     </div>

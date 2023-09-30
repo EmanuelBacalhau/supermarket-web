@@ -1,6 +1,6 @@
 import { categoryService } from '@/api/services/category/categoryService'
 import HeaderHome from '@/components/homeAuth/HeaderHome'
-import { FormProduct } from '@/components/product/FormProduct'
+import { FormProduct } from '@/components/homeAuth/FormProduct'
 import { cookies } from 'next/headers'
 
 export const revalidate = 60
