@@ -1,6 +1,6 @@
 'use client'
 
-import { authService } from '@/api/services/auth'
+import { login } from '@/api/services/auth/login'
 import Button from '@/components/ui/Button'
 import Input from '@/components/ui/Input'
 import Link from 'next/link'
@@ -19,7 +19,7 @@ export function FormSignIn() {
 
     setLoading(true)
 
-    const response = await authService.login({ email, password })
+    const response = await login({ email, password })
 
     setLoading(false)
 

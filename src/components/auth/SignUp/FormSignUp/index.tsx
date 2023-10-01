@@ -1,6 +1,6 @@
 'use client'
 
-import { authService } from '@/api/services/auth'
+import { signUp } from '@/api/services/auth/signUp'
 import Button from '@/components/ui/Button'
 import Input from '@/components/ui/Input'
 import Link from 'next/link'
@@ -25,12 +25,22 @@ export function FormSignUp() {
     event.preventDefault()
     setLoading(true)
 
+    const currentDate = new Date()
+    const confirmBirthday = new Date(birthday)
+
+    if (confirmBirthday > currentDate) {
+      setLoading(false)
+      return toast.error(
+        'Birthday invalid. The date is greater than the current year.',
+      )
+    }
+
     if (confirmPassword !== password) {
       setLoading(false)
       return toast.error('Passwords are not the same.')
     }
 
-    const response = await authService.signUp({
+    const response = await signUp({
       name,
       cpf,
       birthday,
@@ -73,10 +83,8 @@ export function FormSignUp() {
             </Input>
             <Input
               after={true}
-              type="text"
+              type="date"
               required
-              placeholder="00/00/0000"
-              data-mask="dd/mm/yyyy"
               onChange={(e) => setBirthday(e.target.value)}
             >
               Birthday

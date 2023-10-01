@@ -15,7 +15,7 @@ export default function Input({ children, after, ...props }: InputProps) {
       </span>
       <input
         {...props}
-        className="w-full rounded-md border-2 border-gray-300 px-4 py-2 shadow-sm focus:outline-sky-500"
+        className="h-12 w-full  rounded-md border-2 border-gray-300 px-4 py-2 shadow-sm focus:outline-sky-500"
       />
     </label>
   )

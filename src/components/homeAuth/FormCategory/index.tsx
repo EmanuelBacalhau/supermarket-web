@@ -22,6 +22,7 @@ export default function FormCategory() {
     setLoading(false)
     if (response?.status === 201) {
       toast.success('Create category with success!')
+      setName('')
     }
   }
 
@@ -30,6 +31,7 @@ export default function FormCategory() {
       <span className="text-xl font-bold">Register Category</span>
       <form onSubmit={handleForm} className="flex w-full flex-col space-y-3">
         <Input
+          value={name}
           after={false}
           type="text"
           required
