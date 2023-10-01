@@ -3,10 +3,10 @@
 import { FormEvent, useState } from 'react'
 import Button from '../../ui/Button'
 import Input from '../../ui/Input'
-import { categoryService } from '@/api/services/category/categoryService'
 
 import { toast } from 'react-toastify'
 import { parseCookies } from 'nookies'
+import { createCategory } from '@/api/services/category/createCategory'
 
 export default function FormCategory() {
   const [name, setName] = useState<string>('')
@@ -18,7 +18,7 @@ export default function FormCategory() {
   const handleForm = async (event: FormEvent) => {
     event.preventDefault()
     setLoading(true)
-    const response = await categoryService.create(name, cookies[secret])
+    const response = await createCategory(name, cookies[secret])
     setLoading(false)
     if (response?.status === 201) {
       toast.success('Create category with success!')
@@ -26,9 +26,9 @@ export default function FormCategory() {
   }
 
   return (
-    <div className="container mt-32 flex max-w-md flex-col items-center justify-center space-y-5">
+    <div className="container mt-14 flex w-[400px] flex-col items-center justify-center space-y-5">
       <span className="text-xl font-bold">Register Category</span>
-      <form onSubmit={handleForm} className="flex w-[90%] flex-col space-y-3">
+      <form onSubmit={handleForm} className="flex w-full flex-col space-y-3">
         <Input
           after={false}
           type="text"

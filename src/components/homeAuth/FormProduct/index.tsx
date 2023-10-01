@@ -8,6 +8,7 @@ import Button from '@/components/ui/Button'
 import { toast } from 'react-toastify'
 import { parseCookies } from 'nookies'
 import { createProduct } from '@/api/services/product/createProduct'
+import { getCategories } from '@/api/services/category/getCategories'
 
 interface CategoryProps {
   id: string
@@ -36,12 +37,36 @@ export function FormProduct({ categoryList }: FormProductProps) {
   const [categories, setCategories] = useState<CategoryProps[]>(categoryList)
 
   useEffect(() => {
-    setCategories(categoryList)
+    const getData = async () => {
+      const secret = process.env.NEXT_PUBLIC_SECRET as string
+      const cookies = parseCookies()
+
+      const response = await getCategories(cookies[secret])
+      setCategories(response)
+    }
+
+    getData()
   }, [])
 
   const handleForm = async (event: FormEvent) => {
     event.preventDefault()
     setLoading(true)
+
+    if (!Number(price)) {
+      setLoading(false)
+      return toast.error('Enter a valid price!')
+    }
+
+    const manufacturing = new Date(manufacturingDate)
+    const expiration = new Date(expirationDate)
+
+    if (manufacturing > expiration) {
+      setLoading(false)
+      return toast.error(
+        'The expiration date must be greater than the manufacuting date!',
+      )
+    }
+
     const data = new FormData()
 
     data.append('image', image as File)
