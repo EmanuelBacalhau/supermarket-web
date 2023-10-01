@@ -162,6 +162,7 @@ export function FormProduct({ categoryList }: FormProductProps) {
           </Input>
           <select
             value={categoryId}
+            required
             onChange={handleCategory}
             className="w-full rounded-md border-2 border-gray-300 px-4 py-2 shadow-sm"
             placeholder="Select category"
