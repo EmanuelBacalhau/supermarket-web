@@ -19,7 +19,6 @@ export const createProduct = async (data: FormData, token: string) => {
         toast.error(error.response.data.message)
       }
       if (error.response?.status === 422) {
-        console.log('Teste')
         toast.error(error.response.data.message)
       }
       if (error.response?.status === 500) {

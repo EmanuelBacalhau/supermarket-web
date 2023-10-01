@@ -28,7 +28,9 @@ export function FormProduct({ categoryList }: FormProductProps) {
   const [amount, setAmount] = useState<string>('')
   const [manufacturingDate, setManufacturingDate] = useState<string>('')
   const [expirationDate, setExpirationDate] = useState<string>('')
-  const [categoryId, setCategoryId] = useState<string>(categoryList[0].id)
+  const [categoryId, setCategoryId] = useState<string>(
+    categoryList[0]?.id || '',
+  )
   const [image, setImage] = useState<File>()
 
   const [imageUrl, setImageUrl] = useState<string>('')
