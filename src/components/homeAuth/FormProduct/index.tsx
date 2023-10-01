@@ -120,7 +120,7 @@ export function FormProduct({ categoryList }: FormProductProps) {
     setCategoryId(event.target.value)
   }
   return (
-    <div className="container flex flex-col gap-4">
+    <div className="container flex flex-col gap-1">
       <span className="my-3 text-center text-xl font-bold">
         Register product
       </span>
@@ -162,26 +162,32 @@ export function FormProduct({ categoryList }: FormProductProps) {
           >
             Bar code
           </Input>
-          <select
-            value={categoryId}
-            required
-            onChange={handleCategory}
-            className="w-full rounded-md border-2 border-gray-300 px-4 py-2 shadow-sm"
-            placeholder="Select category"
-          >
-            {categories?.map((item) => {
-              return (
-                <option key={item.id} value={item.id}>
-                  {item.name}
-                </option>
-              )
-            })}
-          </select>
+          <label>
+            <span className="block text-sm font-medium text-slate-700 after:ml-0.5 after:text-red-500 after:content-['*']">
+              Category
+            </span>
+            <select
+              value={categoryId}
+              required
+              onChange={handleCategory}
+              className="w-full rounded-md border-2 border-gray-300 px-4 py-2 shadow-sm"
+              placeholder="Select category"
+            >
+              {categories?.map((item) => {
+                return (
+                  <option key={item.id} value={item.id}>
+                    {item.name}
+                  </option>
+                )
+              })}
+            </select>
+          </label>
+
           <div className="flex gap-2 max-[284px]:flex-col">
             <Input
               value={price}
               after={true}
-              type="text"
+              type="number"
               required
               placeholder="Enter the price"
               onChange={(e) => setPrice(e.target.value)}

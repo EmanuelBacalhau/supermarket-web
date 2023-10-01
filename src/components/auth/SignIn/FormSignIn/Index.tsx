@@ -43,6 +43,7 @@ export function FormSignIn() {
           after={false}
           type="password"
           required
+          min={8}
           placeholder="Type your password"
           onChange={(e) => setPassword(e.target.value)}
         >

@@ -5,12 +5,12 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 export default function Input({ children, after, ...props }: InputProps) {
-  const isAfter: string = after ? `after:text-red-500 after:content-['*']` : ''
+  const isAfter: string = after
+    ? `after:ml-0.5 after:text-red-500 after:content-['*']`
+    : ''
   return (
     <label className="w-[100%]">
-      <span
-        className={`block text-sm font-medium text-slate-700 after:ml-0.5 ${isAfter}`}
-      >
+      <span className={`block text-sm font-medium text-slate-700  ${isAfter}`}>
         {children}
       </span>
       <input
