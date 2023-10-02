@@ -5,10 +5,10 @@
 
 ## Comandos necessários para iniciar o projeto
 
-### -> npm i ou npm install
-### -> npm run dev
+#### -> npm i ou npm install
+#### -> npm run dev
 
-### Telas
+## Telas
 
 #### Login
 
