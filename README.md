@@ -1,6 +1,6 @@
 # Supermarket Unifacisa - Trabalho da faculdade!!
 
-## É necessário executar o projeto do backend
+## É necessário executar o servidor
 ## Segue o link: https://github.com/EmanuelBacalhau/supermarket-unifacisa
 
 ## Comandos necessários para iniciar o projeto
