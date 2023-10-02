@@ -96,6 +96,7 @@ export function FormProduct({ categoryList }: FormProductProps) {
       setPrice('')
       setManufacturingDate('')
       setImageUrl('')
+      setImage(undefined)
     }
 
     setLoading(false)
