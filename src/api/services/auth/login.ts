@@ -30,5 +30,6 @@ export const login = async (data: LoginProps) => {
         toast.error('Internal server error')
       }
     }
+    return toast.error('Internal server error')
   }
 }

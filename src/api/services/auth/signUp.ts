@@ -24,5 +24,6 @@ export const signUp = async (data: SignUpProps) => {
         toast.error('Internal server error')
       }
     }
+    return toast.error('Internal server error')
   }
 }
