@@ -1,14 +1,14 @@
 # Supermarket Unifacisa - Trabalho da faculdade!!
 
-## É necessário executar o projeto do backend
-## Segue o link: https://github.com/EmanuelBacalhau/supermarket-unifacisa
+## É necessário executar o servidor
+#### Segue o link: https://github.com/EmanuelBacalhau/supermarket-unifacisa
 
 ## Comandos necessários para iniciar o projeto
 
-### -> npm i ou npm install
-### -> npm run dev
+#### -> npm i ou npm install
+#### -> npm run dev
 
-### Telas
+## Telas
 
 #### Login
 
@@ -45,4 +45,4 @@
 
 ##### Nesta página, essa página é responsável por criar um novo produto, precisamos passar esses campos: image, name, description, bar code, category, price, amount, manufacturing date, expiration date. Todos esses campos são obrigatórios, e existem validações, sendo elas: o bar code é único, e a expiration date deve ser maior manufacturing date, caso algum dos campos não passar nas validações, aparecerá um toast de erro. Esta página, também é autenticada, só pode ser acessada caso seu token seja válido.
 
-##### E por fim, ao clicar no botão de log out você é desconectado do sistema.
+##### E por fim, ao clicar no botão de logout você é desconectado do sistema.

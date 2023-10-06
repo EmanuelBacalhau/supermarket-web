@@ -9,7 +9,7 @@ interface FileInputProps {
 
 export function InputFile({ imageUrl, handleFile }: FileInputProps) {
   return (
-    <div className="rounded-md border-2 border-gray-300">
+    <div className="flex items-center justify-center rounded-md border-2 border-gray-300">
       <label className=" flex h-[474px] cursor-pointer items-center justify-center rounded-md bg-white">
         <span className="absolute z-50 opacity-80 hover:opacity-100">
           <Download
