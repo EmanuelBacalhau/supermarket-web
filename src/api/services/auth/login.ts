@@ -10,7 +10,7 @@ interface LoginProps {
 
 export const login = async (data: LoginProps) => {
   try {
-    const response = await api.post('/auth', data)
+    const response = await api.post('/auth/employees', data)
 
     const secret = process.env.NEXT_PUBLIC_SECRET as string
     const { token } = response.data
